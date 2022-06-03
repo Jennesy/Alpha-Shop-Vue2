@@ -1,0 +1,149 @@
+@use 'sass:map';
+.navbar {
+	position: relative;
+	background-color: var(--navbar-background-color);
+	height: $navbar-height;
+	.hamburger {
+		position: absolute;
+		@extend %absolute-center-y;
+		left: 17px;
+		cursor: pointer;
+		path {
+			fill: var(--text-color);
+		}
+		&-checkbox {
+			visibility: hidden;
+			&:checked ~ .navbar-wrapper {
+				transform: scale(1, 1);
+				.menu {
+					&__link {
+						opacity: 1;
+						@extend %menu-content-delay-transition;
+					}
+				}
+				.toolbar {
+					&__item {
+						opacity: 1;
+						@extend %menu-content-delay-transition;
+					}
+				}
+			}
+		}
+	}
+	&__logo {
+		position: absolute;
+		@extend %absolute-center-xy;
+	}
+	&-wrapper {
+		display: block;
+		background-color: var(--navbar-background-color);
+		width: 100%;
+		height: calc(100vh - 100%);
+		padding: 14.5px;
+		transition: transform 0.5s ease-out 0.2s;
+		transform: scale(1, 0);
+		transform-origin: top;
+		position: absolute;
+		top: 100%;
+		z-index: 20;
+		.menu {
+			&__link {
+				color: var(--text-color);
+				font-weight: 500;
+			}
+			&__item {
+				font-size: 16px;
+				text-align: center;
+				height: 72px;
+				line-height: 72px;
+				border-bottom: 1px solid rgba(42, 42, 42, 0.1);
+				&:hover .menu__link {
+					color: $primary-hover-color;
+				}
+				&:active .menu__link {
+					color: $primary-active-color;
+				}
+			}
+		}
+		.toolbar {
+			height: 72px;
+			@include flexCenterXY(43px);
+			&__item {
+				@each $item in search, cart, theme {
+					&--#{$item} {
+						-webkit-mask-image: map.get($icon-url, #{$item});
+						mask-image: map.get($icon-url, #{$item});
+						background-color: var(--text-color);
+						width: map.get($icon-width, #{$item});
+						height: map.get($icon-height, #{$item});
+						&:hover {
+							background-color: $primary-hover-color;
+						}
+						&:active {
+							background-color: $primary-active-color;
+						}
+					}
+				}
+			}
+		}
+		.menu__link,
+		.toolbar__item {
+			cursor: pointer;
+			opacity: 0;
+			transition: opacity 0.3s ease-out;
+		}
+	}
+}
+@media screen and (min-width: 375px) {
+	.navbar {
+		.navbar-wrapper {
+			left: 0;
+			width: 300px;
+			border-right: 1px solid rgba(42, 42, 42, 0.1);
+			transform-origin: left;
+			transform: scale(0, 1);
+		}
+		.hamburger-checkbox:checked ~ .navbar-wrapper {
+			transform: scale(1, 1);
+		}
+	}
+}
+@media screen and (min-width: 1100px) {
+	.navbar {
+		.hamburger,
+		.hamburger-checkbox {
+			display: none;
+		}
+		.hamburger-checkbox:checked ~ .navbar-wrapper {
+			all: unset;
+		}
+		.navbar-wrapper {
+			all: unset;
+			height: 100%;
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 140px;
+			.menu {
+				all: unset;
+				height: $navbar-height;
+				@include flexCenterXY(32px);
+				&__item,
+				&__link {
+					opacity: 1;
+					transition: none;
+					border-bottom: none;
+				}
+			}
+			.toolbar {
+				all: unset;
+				@include flexCenterXY(43px);
+				&__item {
+					opacity: 1;
+					transition: none;
+				}
+			}
+		}
+	}
+}

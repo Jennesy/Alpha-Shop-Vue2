@@ -1,0 +1,187 @@
+@use 'sass:map';
+/* reset css */
+body {
+	margin: 0;
+	padding: 0;
+}
+
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	margin: 0px;
+	padding: 0px;
+}
+
+ul,
+ol,
+li {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+a,
+a:hover,
+a:focus {
+	text-decoration: none;
+	color: inherit;
+}
+
+img {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+.btn,
+button,
+button:focus,
+input:focus,
+textarea:focus,
+select,
+select:focus,
+a:focus {
+	outline: 0px !important;
+}
+
+button {
+	background-color: transparent;
+	border: 0;
+	cursor: pointer;
+}
+
+button[disabled] {
+	pointer-events: none;
+}
+
+input {
+	padding: 0;
+}
+
+input:required {
+	box-shadow: none;
+}
+
+input:invalid {
+	box-shadow: none;
+}
+
+::-webkit-scrollbar {
+	/* make scrollbar transparent */
+	width: 0px;
+	background: transparent;
+}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;800;900&display=swap');
+
+%menu-content-delay-transition {
+	transition: opacity 0.3s ease-out 0.5s;
+}
+%absolute-center-y {
+	top: 50%;
+	transform: translateY(-50%);
+}
+%absolute-center-xy {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+%input-style {
+	border: 1px solid #4a4a4a;
+	border-radius: 4px;
+	width: 100%;
+	padding: 12px 18px;
+	color: var(--text-color);
+	background-color: transparent;
+}
+%price-dollor-sign {
+	&::before {
+		content: '$';
+	}
+	&[data-price='0']::before {
+		content: '';
+	}
+}
+
+@mixin flexCenterXY($gap) {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: #{$gap};
+}
+
+@mixin getStepNums($num) {
+	@for $i from 1 through $num {
+		&:nth-child(#{$i}) {
+			.stepper-panel__circle::after {
+				position: absolute;
+				@extend %absolute-center-xy;
+				content: '#{$i}';
+				fonte-size: 16px;
+				line-height: 1;
+			}
+		}
+	}
+}
+.d-none {
+	display: none !important;
+}
+@each $num, $value in (25: 25%, 50: 50%, 75: 75%, 100: 100%) {
+	@each $prop, $abbrev in (width: w, height: h) {
+		.#{$abbrev}-#{$num} {
+			#{$prop}: #{$value};
+		}
+	}
+}
+
+body {
+	font-family: 'Noto Sans TC', sans-serif;
+	color: var(--text-color);
+	background-color: var(--web-background-color);
+}
+a:hover {
+	color: $primary-hover-color;
+}
+a:active {
+	color: $primary-active-color;
+}
+.container {
+	padding-left: 17px;
+	padding-right: 17px;
+}
+.logo {
+	@include flexCenterXY(7.87px);
+	&__image {
+		width: 24px;
+		height: 24px;
+		background-image: url($logo-image-url);
+	}
+	&__title {
+		width: 105px;
+		height: 16px;
+		-webkit-mask-image: $logo-title-url;
+		mask-image: $logo-title-url;
+		background-color: var(--text-color);
+	}
+}
+@media screen and (min-width: 576px) {
+	.container {
+		margin: 0 auto;
+		height: 100%;
+		width: 85%;
+	}
+}
+@media screen and (min-width: 1100px) {
+	.main {
+		margin-top: 80px;
+	}
+}
