@@ -51,3 +51,8 @@
 <style lang="scss">
 @import '@/assets/scss/Navbar.scss';
 </style>
+<script>
+export default {
+	name: 'Navbar',
+}
+</script>

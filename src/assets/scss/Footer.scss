@@ -1,0 +1,44 @@
+.footer {
+	display: none;
+}
+
+@media screen and (min-width: 375px) {
+	.footer {
+		display: block;
+		margin-top: 64px;
+		padding-top: 64px;
+		padding-bottom: 80px;
+		width: 100%;
+		background-color: var(--footer-background-color);
+		.footer-wrapper {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+			row-gap: 43px;
+			.footer-info-section {
+				&--logo {
+					width: max-content;
+				}
+				&__title {
+					font-size: 24px;
+					font-weight: 700;
+					line-height: 1;
+					margin-bottom: 24px;
+				}
+				&__item {
+					color: var(--footer-text-color);
+					font-size: 16px;
+					font-weight: 400;
+					line-height: 1;
+					margin-bottom: 8px;
+				}
+				&__media {
+					display: inline-block;
+					margin-right: 20px;
+					&:hover path {
+						fill: $primary-hover-color;
+					}
+				}
+			}
+		}
+	}
+}
