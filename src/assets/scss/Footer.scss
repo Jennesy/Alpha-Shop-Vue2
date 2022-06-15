@@ -34,6 +34,10 @@
 				&__media {
 					display: inline-block;
 					margin-right: 20px;
+					&-group {
+						display: flex;
+						align-items: center;
+					}
 					&:hover path {
 						fill: $primary-hover-color;
 					}
