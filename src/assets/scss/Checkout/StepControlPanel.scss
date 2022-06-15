@@ -1,0 +1,44 @@
+.form {
+	.control-panel {
+		padding-top: 24px;
+		border-top: 1px solid var(--form-divider-color);
+		grid-column: 1/13;
+		order: 1;
+		display: flex;
+		align-items: center;
+		&__button {
+			font-size: 14px;
+			font-weight: 500;
+			line-height: 17px;
+			cursor: pointer;
+			color: var(--text2-color);
+			&--next {
+				padding: 14.5px 38.5px;
+				background-color: $primary-color;
+				border-radius: 8px;
+				color: $white;
+				margin-left: auto;
+			}
+			&--next:hover {
+				background-color: $primary-hover-color;
+			}
+			&--next:active {
+				background-color: $primary-active-color;
+			}
+			&--previous:hover {
+				color: $primary-hover-color;
+			}
+			&--previous:active {
+				color: $primary-active-color;
+			}
+		}
+	}
+}
+@media screen and (min-width: 1100px) {
+	.form {
+		.control-panel {
+			grid-column: 1/7;
+			grid-row: 3/4;
+		}
+	}
+}

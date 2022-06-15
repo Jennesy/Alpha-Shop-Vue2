@@ -103,14 +103,6 @@ input:invalid {
 	color: var(--text-color);
 	background-color: transparent;
 }
-%price-dollor-sign {
-	&::before {
-		content: '$';
-	}
-	&[data-price='0']::before {
-		content: '';
-	}
-}
 
 @mixin flexCenterXY($gap) {
 	display: flex;
@@ -126,7 +118,7 @@ input:invalid {
 				position: absolute;
 				@extend %absolute-center-xy;
 				content: '#{$i}';
-				fonte-size: 16px;
+				font-size: 16px;
 				line-height: 1;
 			}
 		}

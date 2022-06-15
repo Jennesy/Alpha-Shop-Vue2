@@ -1,0 +1,121 @@
+.main {
+	margin-top: 16px;
+	.main-wrapper {
+		.main-title {
+			font-size: 24px;
+			line-height: 38px;
+			margin-bottom: 24px;
+		}
+		.form {
+			display: grid;
+			grid-template-columns: repeat(12, 1fr);
+			grid-template-rows: repeat(4, max-content);
+		}
+	}
+}
+.modal {
+	&-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: var(--modal-overlay-color);
+		backdrop-filter: blur(15px);
+	}
+	&-window {
+		position: fixed;
+		@extend %absolute-center-xy;
+		background-color: var(--cart-fill-color);
+		z-index: 100;
+		width: fit-content;
+		border: 1px solid var(--cart-stroke-color);
+		border-radius: 4px;
+		padding: 24px 32px;
+		&__exit {
+			position: absolute;
+			top: 10px;
+			right: 16px;
+			cursor: pointer;
+			&::before,
+			&::after {
+				position: absolute;
+				top: 0px;
+				right: 0px;
+				content: '';
+				width: 1px;
+				height: 14px;
+				border-radius: 0.5px;
+				background-color: var(--text-color);
+				transform: rotate(45deg);
+				transform-origin: center;
+			}
+			&::after {
+				transform: rotate(-45deg);
+			}
+			&:hover::before,
+			&:hover::after {
+				background-color: $primary-hover-color;
+				width: 2px;
+				border-radius: 1px;
+			}
+		}
+		&__text {
+			margin-bottom: 12px;
+		}
+		&__buttons {
+			display: flex;
+			justify-content: space-between;
+		}
+		&__button {
+			&--yes {
+				color: var(--text-color);
+				&:hover {
+					color: $primary-hover-color;
+				}
+				&:active {
+					color: $primary-active-color;
+				}
+			}
+			&--no {
+				padding: 8px 24px;
+				background-color: $primary-color;
+				color: white;
+				border-radius: 4px;
+				&:hover {
+					background-color: $primary-hover-color;
+				}
+				&:active {
+					background-color: $primary-active-color;
+				}
+			}
+		}
+	}
+}
+
+@media screen and (min-width: 576px) {
+	.main .main-wrapper {
+		.main-title,
+		.form {
+			max-width: 700px;
+			margin-inline: auto;
+		}
+	}
+}
+@media screen and (min-width: 1100px) {
+	.main {
+		margin-top: 80px;
+		.main-wrapper {
+			.main-title {
+				max-width: 100%;
+				font-size: 32px;
+				line-height: 38px;
+				margin-bottom: 48px;
+			}
+			.form {
+				max-width: 100%;
+				grid-template-rows: 24px 1fr 72px;
+			}
+		}
+	}
+}
