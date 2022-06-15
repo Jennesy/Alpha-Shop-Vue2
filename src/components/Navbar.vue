@@ -42,7 +42,10 @@
 				<div class="toolbar">
 					<div class="toolbar__item toolbar__item--search"></div>
 					<div class="toolbar__item toolbar__item--cart"></div>
-					<div class="toolbar__item toolbar__item--theme"></div>
+					<div
+						class="toolbar__item toolbar__item--theme"
+						@click="changeColor"
+					></div>
 				</div>
 			</div>
 		</div>
@@ -54,5 +57,12 @@
 <script>
 export default {
 	name: 'Navbar',
+	methods: {
+		changeColor: function () {
+			const newMode =
+				document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'
+			document.documentElement.setAttribute('data-theme', newMode)
+		},
+	},
 }
 </script>
