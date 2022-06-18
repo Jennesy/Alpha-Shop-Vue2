@@ -7,8 +7,12 @@
 				id="card-name"
 				placeholder="John Doe"
 				class="form-panel__input form-panel__input form-panel__input--text"
-				v-model="cardName"
-				@change="updateDataToParent('cardName', cardName)"
+				required
+				v-model="cardName.value"
+				@blur="
+					checkValidity($event, cardName)
+					updateDataToParent('cardName', cardName.value)
+				"
 			/>
 		</div>
 		<div class="form-panel__input-block form-panel__input-block--card-number">
@@ -18,8 +22,12 @@
 				id="card-number"
 				placeholder="1111 2222 3333 4444"
 				class="form-panel__input form-panel__input--text"
-				v-model="cardNumber"
-				@change="updateDataToParent('cardNumber', cardNumber)"
+				required
+				v-model="cardNumber.value"
+				@blur="
+					checkValidity($event, cardNumber)
+					updateDataToParent('cardNumber', cardNumber.value)
+				"
 			/>
 		</div>
 		<div class="form-panel__input-block form-panel__input-block--card-expired">
@@ -29,8 +37,12 @@
 				id="card-expired"
 				placeholder="MM/YY"
 				class="form-panel__input form-panel__input--text"
-				v-model="cardExpired"
-				@change="updateDataToParent('cardExpired', cardExpired)"
+				required
+				v-model="cardExpired.value"
+				@blur="
+					checkValidity($event, cardExpired)
+					updateDataToParent('cardExpired', cardExpired.value)
+				"
 			/>
 		</div>
 		<div class="form-panel__input-block form-panel__input-block--card-cvc">
@@ -40,8 +52,12 @@
 				id="card-cvc"
 				placeholder="123"
 				class="form-panel__input form-panel__input--text"
-				v-model="cardCvc"
-				@change="updateDataToParent('cardCvc', cardCvc)"
+				required
+				v-model="cardCvc.value"
+				@blur="
+					checkValidity($event, cardCvc)
+					updateDataToParent('cardCvc', cardCvc.value)
+				"
 			/>
 		</div>
 	</section>
@@ -61,22 +77,36 @@ export default {
 	},
 	data() {
 		return {
-			cardName: '',
-			cardNumber: '',
-			cardExpired: '',
-			cardCvc: '',
+			cardName: { value: '', isDone: this.sectionData.isAllDone },
+			cardNumber: { value: '', isDone: this.sectionData.isAllDone },
+			cardExpired: { value: '', isDone: this.sectionData.isAllDone },
+			cardCvc: { value: '', isDone: this.sectionData.isAllDone },
 		}
 	},
 	created() {
 		const { cardName, cardNumber, cardExpired, cardCvc } = this.sectionData
-		this.cardName = cardName
-		this.cardNumber = cardNumber
-		this.cardExpired = cardExpired
-		this.cardCvc = cardCvc
+		this.cardName.value = cardName
+		this.cardNumber.value = cardNumber
+		this.cardExpired.value = cardExpired
+		this.cardCvc.value = cardCvc
 	},
 	methods: {
 		updateDataToParent: function (key, value) {
-			this.$emit('update-data', 2, key, value)
+			const isAllDone =
+				this.cardName.isDone &&
+				this.cardNumber.isDone &&
+				this.cardExpired.isDone &&
+				this.cardCvc.isDone
+			this.$emit('update-data', 2, key, value, isAllDone)
+		},
+		checkValidity: function (event, data) {
+			if (!event.target.checkValidity()) {
+				event.target.classList.add('warning')
+				data.isDone = false
+				return
+			}
+			event.target.classList.remove('warning')
+			data.isDone = true
 		},
 	},
 }

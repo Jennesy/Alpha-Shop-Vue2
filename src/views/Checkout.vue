@@ -1,7 +1,12 @@
 <template>
 	<div class="main-wrapper container">
 		<h3 class="main-title">結帳</h3>
-		<form action="" class="form" @submit.stop.prevent="handleSubmit">
+		<form
+			action=""
+			class="form"
+			@submit.stop.prevent="handleSubmit"
+			novalidate="true"
+		>
 			<StepperPanel :current-step="currentStep" :sections="sections" />
 			<div class="form-panel">
 				<h3 class="form-panel__title">
@@ -29,7 +34,7 @@
 				:current-step="currentStep"
 				:sections="sections"
 				@previous-step="currentStep--"
-				@next-step="currentStep++"
+				@next-step="nextStep"
 			/>
 			<CartPanel
 				:cart-products="cart.products"
@@ -91,6 +96,7 @@ const dummyData = {
 	],
 }
 export default {
+	name: 'Checkout',
 	components: {
 		StepperPanel,
 		FormSectionAddress,
@@ -106,12 +112,13 @@ export default {
 			sections: [
 				{
 					sectionName: '寄送地址',
-					title: 'male',
+					title: '',
 					name: '',
 					phone: '',
 					email: '',
 					city: '',
 					address: '',
+					isAllDone: false,
 				},
 				{
 					sectionName: '運送方式',
@@ -119,6 +126,7 @@ export default {
 						name: 'normal',
 						price: 0,
 					},
+					isAllDone: true,
 				},
 				{
 					sectionName: '付款資訊',
@@ -126,6 +134,7 @@ export default {
 					cardNumber: '',
 					cardExpired: '',
 					cardCvc: '',
+					isAllDone: false,
 				},
 			],
 			cart: {
@@ -139,9 +148,9 @@ export default {
 			const cartProducts = [...dummyData.cartProducts]
 			this.cart.products = [...cartProducts]
 		},
-		updateData: function (index, key, value) {
+		updateData: function (index, key, value, isAllDone) {
 			this.sections[index][key] = value
-			console.log(index, key, value)
+			this.sections[index].isAllDone = isAllDone
 		},
 		handleProductChange: function (product, change, modalConfirmed = false) {
 			if (modalConfirmed) {
@@ -157,7 +166,20 @@ export default {
 			}
 			product.num += change
 		},
-		handleSubmit: function () {
+		nextStep: function () {
+			if (this.sections[this.currentStep].isAllDone) {
+				this.currentStep++
+				return
+			}
+			alert('請完成表格填寫')
+			return
+		},
+		handleSubmit: function (event) {
+			event.preventDefault()
+			if (!this.sections[2].isAllDone) {
+				alert('請完成表格填寫')
+				return
+			}
 			const {
 				title,
 				name,
