@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkalpha_shop_vue2"]=self["webpackChunkalpha_shop_vue2"]||[]).push([[744],{3744:function(e,t,n){n.r(t),n.d(t,{default:function(){return c}});var a=function(){var e=this,t=e.$createElement;e._self._c;return e._m(0)},l=[function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("div",{staticClass:"main-wrapper container"},[n("h3",{staticClass:"main-title"},[e._v("404 Page Not Found")])])}],s=n(1001),u={},r=(0,s.Z)(u,a,l,!1,null,null,null),c=r.exports}}]);
+//# sourceMappingURL=744-legacy.5e3b73d2.js.map
